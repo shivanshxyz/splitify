@@ -27,7 +27,6 @@
         </activity>
         <activity android:name="com.brogrammers.splitify.AddEditMemberActivity"/>
         <activity android:name="com.brogrammers.splitify.AddEditBillActivity"/>
-        <activity android:name="com.brogrammers.splitify.HandleOnGroupClickActivity" />
         <activity android:name="com.brogrammers.splitify.GroupListActivity" />
         <activity android:name="com.brogrammers.splitify.CreateNewGroupActivity" />
     </application>
