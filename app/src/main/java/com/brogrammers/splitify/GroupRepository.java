@@ -11,8 +11,6 @@ import androidx.lifecycle.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-/* Use AsyncTask to perform operations insert,delete,update,deleteAll,getAllGroupsNonLive. Doing these operations on the main thread could
- * lock our user interface */
 public class GroupRepository {
     private GroupDao groupDao;
     private LiveData<List<GroupEntity>> allGroups;

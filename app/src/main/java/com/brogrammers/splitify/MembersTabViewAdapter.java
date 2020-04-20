@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-/* Objective: Prepare a custom adapter that could create/update the view for every item in the recycler view */
 public class MembersTabViewAdapter extends RecyclerView.Adapter<MembersTabViewAdapter.MemberDetailViewHolder> {
     private OnItemClickListener listener;
     private List<MemberEntity> list = new ArrayList<>(); // maintain a list of all the existing members in the database
@@ -37,15 +36,13 @@ public class MembersTabViewAdapter extends RecyclerView.Adapter<MembersTabViewAd
     }
 
     /*
-    handles all kinds of action when ActionMode is active.
-    In our case, when the user does a long click on any recycler view item, ActionMode is activated
-    and the following actionModeCallbacks object is created: */
+    handles all kinds of action when ActionMode is active. */
     private ActionMode.Callback actionModeCallbacks = new ActionMode.Callback() {
 
         // method is called right after the user does a long click on any item
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            multiSelect = true; // since user has already selected one item after the long click
+            multiSelect = true;
             menu.add("Delete");
             actionMode = mode;
             return true;
@@ -59,7 +56,6 @@ public class MembersTabViewAdapter extends RecyclerView.Adapter<MembersTabViewAd
         // method is called when user clicks on "Delete" option in the menu
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            // for every selected item remove it from the recycler view list and also delete it from database
             for(MemberEntity member: selectedItems) {
                 list.remove(member);
                 deleteFromDatabase(member);
@@ -72,7 +68,7 @@ public class MembersTabViewAdapter extends RecyclerView.Adapter<MembersTabViewAd
         public void onDestroyActionMode(ActionMode mode) {
             multiSelect = false;
             selectedItems.clear();
-            notifyDataSetChanged(); // notify the recycler view about the changes and hence re-render its list
+            notifyDataSetChanged();
         }
     };
 
@@ -92,9 +88,6 @@ public class MembersTabViewAdapter extends RecyclerView.Adapter<MembersTabViewAd
         }
 
         void update(final MemberEntity member) {
-
-            /* if the user clicks on back button while an item was selected(gray colour), notifyDataSetChanged is called, hence update() is called again for every viewHolder. So, at this point
-               we need to make sure that the item that was selected(gray colour) previously, needs to be white(unselected) now. */
             if (selectedItems.contains(member)) {
                 relativeLayout.setBackgroundColor(Color.LTGRAY);
             } else {

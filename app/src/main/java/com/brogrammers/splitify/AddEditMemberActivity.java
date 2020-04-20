@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/* Note that this activity can act as a Add Member Activity or Edit Member Activity based on the intent data we receive*/
 public class AddEditMemberActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private EditText editText;
     private String gName;
@@ -94,17 +93,15 @@ public class AddEditMemberActivity extends AppCompatActivity implements AdapterV
         addEditMemberAvatarSpinnerAdapter.addAll(avatarOptions);
 
         if(intent.hasExtra("memberId")) {
-            // Only edit member intent sends "memberId" with it
-            // Get data from the edit member intent that started this activity
             userId = intent.getIntExtra("memberId",-1);
 
             setTitle("Edit Member");
 
-            editText.setText(intent.getStringExtra("memberName")); // set default text received from the intent
+            editText.setText(intent.getStringExtra("memberName"));
 
             // set default spinner item
             int spinnerAvatarPosition = addEditMemberAvatarSpinnerAdapter.getPosition(intent.getIntExtra("avatarResource",-1)); // get position of the avatar(received from intent) in spinner array
-            spinnerAvatar.setSelection(spinnerAvatarPosition); // set spinner default selection
+            spinnerAvatar.setSelection(spinnerAvatarPosition);
         } else {
             setTitle("Add Member to Group");
         }
@@ -130,10 +127,8 @@ public class AddEditMemberActivity extends AppCompatActivity implements AdapterV
         return true;
     }
 
-    // call this method when an option in the menu is selected
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // if user clicks on submit button, save/update the database
         if(item.getItemId() == R.id.addMemberToolbarMenu) {
             saveEditMember();
         }

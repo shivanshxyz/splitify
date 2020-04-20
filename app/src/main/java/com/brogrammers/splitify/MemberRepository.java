@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 import java.util.ArrayList;
 import java.util.List;
-/* Use AsyncTask to perform operations insert,delete,update,deleteAll,getAllMembersNonLive. Doing these operations on the main thread could
-* lock our user interface */
 
 public class MemberRepository {
     private MemberDao memberDao;

@@ -39,18 +39,14 @@ public class GroupListActivity extends AppCompatActivity {
         // prepare recycler view
         RecyclerView recyclerView = findViewById(R.id.group_list_recycler_view);
         recyclerView.setHasFixedSize(true);
-        // second parameter below -> attach this activity as a listener to every item in the group list
         adapter = new GroupListActivityViewAdapter(GroupListActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        // if data in database(Group) changes, call the onChanged() below
         groupViewModel = ViewModelProviders.of(this).get(GroupViewModel.class);
         groupViewModel.getAllGroups().observe(this, new Observer<List<GroupEntity>>() {
             @Override
             public void onChanged(List<GroupEntity> groupEntities) {
-                // Recreate the recycler view by notifying adapter with the changes
-                // here groupEntities is the list of current items in the groupList
                 groupNames = groupEntities;
                 adapter.saveToList(groupEntities);
             }

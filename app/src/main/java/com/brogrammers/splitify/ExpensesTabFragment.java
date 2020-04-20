@@ -22,8 +22,8 @@ import java.util.List;
 
 public class ExpensesTabFragment extends Fragment {
     private String gName; // group name
-    private List<BillEntity> bills = new ArrayList<>(); // maintain a list of all the existing bills of the group from the database
-    private List<MemberEntity> members = new ArrayList<>(); // maintain a list of all the existing members of the group from the database
+    private List<BillEntity> bills = new ArrayList<>();
+    private List<MemberEntity> members = new ArrayList<>();
     private BillViewModel billViewModel;
     private ExpensesTabViewAdapter adapter;
     private StringBuilder currency = new StringBuilder();
@@ -103,8 +103,7 @@ public class ExpensesTabFragment extends Fragment {
         });
 
         // implement edit expense function
-        // create new ExpensesTabViewAdapter.OnItemClickListener interface object and pass it as a parameter to ExpensesTabViewAdapter.setOnItemClickListener method
-        adapter.setOnItemClickListener(new ExpensesTabViewAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new ExpensesTabViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BillEntity bill) {
                 // create an edit expense intent

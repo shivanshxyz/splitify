@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-/* Objective: Prepare a custom adapter that could create/update the view for every item in the recycler view */
 public class GroupListActivityViewAdapter extends RecyclerView.Adapter<GroupListActivityViewAdapter.GroupListActivityViewHolder>{
     private OnGroupClickListener listener;
     private List<GroupEntity> list  = new ArrayList<>(); // maintain a list of all the existing groups in the database
@@ -25,12 +24,7 @@ public class GroupListActivityViewAdapter extends RecyclerView.Adapter<GroupList
     List<GroupEntity> selectedItems = new ArrayList<>();
     private GroupListActivity thisOfGroupListActivity;
 
-    /*
-    handles all kinds of action when ActionMode is active.
-    In our case, when the user does a long click on any recycler view item, ActionMode is activated
-    and the following actionModeCallbacks object is created: */
     private ActionMode.Callback actionModeCallbacks = new ActionMode.Callback() {
-        // method is called right after the user does a long click on any item
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             multiSelect = true;
@@ -80,8 +74,6 @@ public class GroupListActivityViewAdapter extends RecyclerView.Adapter<GroupList
 
         void update(final GroupEntity group) {
 
-            /* if the user clicks on back button while an item was selected(gray colour), notifyDataSetChanged is called, hence update() is called again for every viewHolder. So, at this point
-               we need to make sure that the item which was selected(gray colour) previously, needs to be white(unselected) now. */
             if (selectedItems.contains(group)) {
                 relativeLayout.setBackgroundColor(Color.LTGRAY);
             } else {
@@ -92,7 +84,6 @@ public class GroupListActivityViewAdapter extends RecyclerView.Adapter<GroupList
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    // at this point the user has successfully initiated a long click and hence we need to activate ActionMode now to handle multiple select and delete items
                     ((AppCompatActivity)v.getContext()).startSupportActionMode(actionModeCallbacks); // activate ActionMode and let actionModeCallback handle action
                     selectItem(group); // here group is the initially selected item after the long click event
                     return true;
@@ -138,8 +129,7 @@ public class GroupListActivityViewAdapter extends RecyclerView.Adapter<GroupList
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Note that if the user is in multiSelect mode, the function for individual click on any item shouldn't be initiated
-                if(multiSelect) { // if multiSelect is On, clicking on any item should only highlight it and add it to our selectedItems list
+                if(multiSelect) {
                     hold.selectItem(list.get(pos));
                 }
                 if(listener != null && !multiSelect) { // if multiSelect is Off, clicking on any item should initiate HandleOnGroupClickActivity
